@@ -1,0 +1,21 @@
+.zhuti{
+    margin: 0 auto;
+    height: auto;
+    width: 750px;
+    position: relative;
+    top:20px;
+}
+li{
+    list-style: none;
+}
+.jianjie{
+    position: absolute;
+    top:0;
+    left: 210px;
+}
+p{
+    margin-bottom: 0;
+}
+hr{
+    margin-top: 0;
+}

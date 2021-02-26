@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>我的收藏</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/collect.css' %}">
+{% endblock %}
+{% block body %}
+
+
+{% if collect %}
+    {% for i in collect %}
+      <ul class="mulu">
+       <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+    {% endfor %}
+    {% else %}
+    <p>你还没有任何收藏</p>
+    {% endif %}
+
+
+{% endblock %}

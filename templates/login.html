@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>登录</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block me %}
+    <div class="zhuti">
+
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+  <ul class="layui-tab-title">
+    <li class="layui-this">登录</li>
+    <li>注册</li>
+  </ul>
+  <div class="layui-tab-content">
+       <div class="layui-tab-item layui-show">
+            <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+{{ login }}
+    <button type="submit">登录</button>
+</form>
+       </div>
+    <div class="layui-tab-item">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+        {{ register }}
+            <button type="submit">提交</button>
+            </form>
+    </div>
+     </div>
+</div>
+
+
+</div>
+
+
+{% endblock %}

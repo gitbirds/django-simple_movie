@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block head %}
+ <title>{{ movie.title }}</title>
+ {% load static %}
+    {% load comment_tags %}
+    {% load comment_filter %}
+ <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+{% block body %}
+<div class="zhuti">
+<img src="/media/{{ movie.image }}" style="width: 202px;height: 290px;">
+<ul class="jianjie">
+    <li><h2>{{ movie.title }}</h2></li>
+    <li>导演：{{ movie.director }}</li>
+    <li>主演：{{ movie.actors }}</li>
+    <li>上映时间：{{ movie.show_time|date:'Y-m-d' }}</li>
+    <li>地区：{{ movie.get_area_display }}</li>
+    <li>类型：{{ movie.get_type_display }}</li>
+    {% if movie.id|to_str in request.user.user_link.collections %}  {#查询收藏列表#}
+        <li><a href="{% url 'collect' movie.id %}">已收藏</a></li>
+        {% else %}
+        <li><a href="{% url 'collect' movie.id %}">未收藏</a></li>
+    {% endif %}
+    <li><button type="button" class="btn btn-outline-dark">暂无资源</button></li>
+</ul>
+    <br>
+<h3>简介</h3>
+<hr>
+{{ movie.content  }}
+<br>
+<h3>影评</h3>
+<hr>
+
+{% get_comment movie.id as movie_comments %}  {#获取所有该电影评论#}
+{% if not movie_comments  %}
+    <p>等待你的热评</p>
+{% else %}
+    {% for i in movie_comments %}
+        {% get_user i.user_id as c_user %}     {#获取评论用户信息#}
+        <div class="media">
+  <img src="/media/{{ c_user.user_link.touxiang }}" class="mr-3" alt="..." style="height: 48px;width: 48px;border-radius: 8px">
+  <div class="media-body">
+    <h5 class="mt-0" style="color: #C2BE9E">{{ c_user.username }}  </h5>   {#用户名#}
+    <p>{{ i.comment }}  </p> {#评论内容#}
+  </div>
+</div>
+<br>
+    {% endfor %}
+{% endif %}
+
+
+<form action="{% url 'comment' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="{{ request.user.id }}" name="user_id">
+    <input type="hidden" value="{{ movie.id }}" name="movie_id">
+
+    <div class="input-group mb-3">
+  <input name="comment" type="text" class="form-control" placeholder="献上你的神评吧" required>
+  <div class="input-group-append">
+    <button class="input-group-text" type="submit" id="basic-addon2">提交</button>
+  </div>
+</div>
+</form>
+
+<div style="height: 50px"></div>
+</div>
+
+
+
+{% endblock %}

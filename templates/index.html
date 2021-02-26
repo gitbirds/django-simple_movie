@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block head %}
+    {% load static %}
+    <title>电影网</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block body %}
+
+
+
+<div class="zhuti">
+<p style="display: inline-block">动漫</p><a href="{% url 'sort' 'h-0-0' %}" style="position: relative;left: 650px">更多</a>
+<hr>
+{% for i in hentai %}
+         <ul class="mulu">
+        <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+{% endfor %}
+<p style="display: inline-block">科幻</p><a href="{% url 'sort' 'ke-0-0' %}" style="position: relative;left: 650px">更多</a>
+<hr>
+{% for i in kehuan %}
+         <ul class="mulu">
+        <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+{% endfor %}
+<p style="display: inline-block">喜剧</p><a href="{% url 'sort' 'xi-0-0' %}" style="position: relative;left: 650px">更多</a>
+<hr>
+{% for i in xiju %}
+        <ul class="mulu">
+        <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+
+{% endfor %}
+<p style="display: inline-block">爱情</p><a href="{% url 'sort' 'a-0-0' %}" style="position: relative;left: 650px">更多</a>
+<hr>
+{% for i in love %}
+         <ul class="mulu">
+        <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+{% endfor %}
+<p style="display: inline-block">动作</p><a href="{% url 'sort' 'd-0-0' %}" style="position: relative;left: 650px">更多</a>
+<hr>
+{% for i in dongzuo %}
+         <ul class="mulu">
+       <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+{% endfor %}
+</div>
+
+
+{% endblock %}

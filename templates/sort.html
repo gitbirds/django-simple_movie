@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title></title>
+    {% load static %}
+    {% load class_tags %}
+    {% load class_filter %}
+    <link rel="stylesheet" href="{% static 'css/sort.css' %}">
+{% endblock %}
+{% block body %}
+
+<div class="fenlei">
+<p>地区：</p>
+ {% get_area as s %}          {#    得到所有的地区#}
+    {% for i in s %}
+       {% get_url request i|first as u %}    {# 拿到url做处理 #}
+        {% get_current_url request as c_u %}         {#    得到当前的url与展示类型比对，如果一样就加上背景色#}
+        {% if c_u|hanzi == i|first|strfort %}
+        <div class="layui-btn layui-btn-primary layui-btn-sm" style="background-color: #00F7DE">
+           <a href="{% url 'sort' u %}">{{ i|hanzi }}</a>
+       </div>
+            {% else %}
+       <div class="layui-btn layui-btn-primary layui-btn-sm">
+           <a href="{% url 'sort' u %}">{{ i|hanzi }}</a>
+       </div>
+        {% endif %}
+    {% endfor %}
+    <br>
+<p>类型：</p>
+    {% get_type as t %}
+    {% for i in t %}
+        {% get_url request i|first as u %}
+        {% get_current_url request as c_u %}
+        {% if c_u|first == i|first %}
+        <div class="layui-btn layui-btn-primary layui-btn-sm" style="background-color: #00F7DE">
+        <a href="{% url 'sort' u %}">{{ i|hanzi }}</a>
+        </div>
+        {% else %}
+        <div class="layui-btn layui-btn-primary layui-btn-sm">
+        <a href="{% url 'sort' u %}">{{ i|hanzi }}</a>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+<div class="zhuti">
+{% if sorts %}            {# 判断有没有此种类型电影 #}
+{% for i in sorts %}
+      <ul class="mulu">
+       <li><a href="{% url 'detail' i.id %}">
+        <img src="/media/{{ i.image }}" style="width: 115px;height: 172px;">
+    <p>{{ i.title }}</p>
+        </a></li></ul>
+{% endfor %}
+    {% else %}
+    <p>暂时还没有这种类型</p>
+{% endif %}
+
+
+ <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+        {% if page_obj.has_previous %}
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+  {% endif %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+   {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+       <span aria-hidden="true">&raquo;</span>
+      {% endif %}
+      </a>
+    </li>
+  </ul>
+</nav>
+<div style="height: 50px"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览历史</title>
+</head>
+<body>
+{% for i,j in movies.items %}
+
+    <a href="{% url 'detail' j.id %}">{{ j }}-{{ i }}</a> <br>
+
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>搜索</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+{% block body %}
+    <div class="zhuti">
+ {% if query %}
+            <h3 style="margin: 0 auto">搜索结果：</h3>
+
+            {% for result in page.object_list %}
+                <ul class="mulu">
+       <li><a href="{% url 'detail' result.object.id %}">
+        <img src="/media/{{result.object.image }}" style="width: 115px;height: 172px;">
+    <p>{{ result.object.title }}</p>
+        </a></li></ul>
+            {% empty %}
+                <p>哎呀，没找到</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&page={{ page.previous_page_number }}">{% endif %}« Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&page={{ page.next_page_number }}">{% endif %}Next »{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+
+        {% endif %}
+    </div>
+{% endblock %}
