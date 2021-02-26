@@ -9,6 +9,6 @@ django 3.1.6<br>
 python 3.9.1<br>
 没有过多的依赖包
 # 预览
-![](https://github.com/gitbirds/django-simple_movie/tree/master/media/media/捕获.jpg)<br>
-![](https://github.com/gitbirds/django-simple_movie/tree/master/media/media/捕获1.jpg)<br>
+![](https://github.com/gitbirds/django-simple_movie/blob/master/media/media/%E6%8D%95%E8%8E%B7.JPG)<br>
+![](https://github.com/gitbirds/django-simple_movie/tree/master/media/media/%E6%8D%95%E8%8E%B71.jpg)<br>
 ![](https://github.com/gitbirds/django-simple_movie/tree/master/media/media/捕获2.jpg)
